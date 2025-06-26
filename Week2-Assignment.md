@@ -13,18 +13,18 @@ Build a RESTful API using Express.js that implements standard CRUD operations, p
 
 ### Task 2: RESTful API Routes
 - Create a resource called `products` with the following fields:
-  - `id` (unique identifier)
-  - `name` (string)
-  - `description` (string)
-  - `price` (number)
-  - `category` (string)
-  - `inStock` (boolean)
-- Implement the following RESTful routes:
-  - `GET /api/products`: List all products
-  - `GET /api/products/:id`: Get a specific product by ID
-  - `POST /api/products`: Create a new product
-  - `PUT /api/products/:id`: Update an existing product
-  - `DELETE /api/products/:id`: Delete a product
+  - `id` (unique identifier).
+  - `name` (string).
+  - `description` (string).
+  - `price` (number).
+  - `category` (string).
+  - `inStock` (boolean).
+  - Implement the following RESTful routes:
+  - `GET /api/products`: List all products.
+  - `GET /api/products/:id`: Get a specific product by ID.
+  - `POST /api/products`: Create a new product.
+  - `PUT /api/products/:id`: Update an existing product.
+  - `DELETE /api/products/:id`: Delete a product.
 
 ### Task 3: Middleware Implementation
 - Create a custom logger middleware that logs the request method, URL, and timestamp

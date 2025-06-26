@@ -47,11 +47,58 @@ app.get('/', (req, res) => {
 
 // TODO: Implement the following routes:
 // GET /api/products - Get all products
+app.get('/api/products', (req, res) => {
+  res.json(products);
+});
 // GET /api/products/:id - Get a specific product
+app.get('/api/products/:id', (req, res) => {
+  const productId = req.params.id;
+  const product = products.find(p => p.id === productId);
+  if (product) {
+    res.json(product);
+  }
+  else {
+    console.error(`Product with ID ${productId} not found`);
+    res.status(404).json({ error: 'Product not found' });
+  }
+});
 // POST /api/products - Create a new product
+app.post('/api/products', (req, res) => {
+  const newProduct = {
+    id: uuidv4(), // Generate a unique ID
+    ...req.body // Spread the request body into the new product object
+  };
+  products.push(newProduct);
+  res.status(201).json(newProduct);
+});
 // PUT /api/products/:id - Update a product
+app.put('/api/products/:id', (req, res) => {
+  const productId = req.params.id;
+  const productIndex = products.findIndex(p => p.id === productId);
+  
+  if (productIndex !== -1) {
+    const updatedProduct = {
+      ...products[productIndex],
+      ...req.body // Update the product with the request body
+    };
+    products[productIndex] = updatedProduct;
+    res.json(updatedProduct);
+  } else {
+    console.error(`Product with ID ${productId} not found`);
+    res.status(404).json({ error: 'Product not found' });
+  }
+});
 // DELETE /api/products/:id - Delete a product
-
+app.get('/api/products/:id', (req, res) => {
+  const productId = req.params.id;
+  const productIndex = products.findIndex(p => p.id === productId);
+  if (!productIndex){
+    console.error(`Product with ID ${productId} not found`);
+    return res.status(404).json({ error: 'Product not found' });
+  }else{
+    res.status(204).send(products.filter(p => p.id !== productIndex));
+  }
+});
 // Example route implementation for GET /api/products
 app.get('/api/products', (req, res) => {
   res.json(products);
