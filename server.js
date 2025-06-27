@@ -53,9 +53,34 @@ app.use((err, req, res, next) => {
   next(); // Call the next middleware or route handler
 });
 
+// custom error classes for different types of errors
+class NotFoundError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'NotFoundError';
+    this.statusCode = 404;
+  }
+}
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'ValidationError';
+    this.statusCode = 400;
+  }
+}
 
+// && ### Task 5: Advanced Features
+// Query parameters for filtering products by category
+app.get('/api/products', (req, res) => {
+  const { category } = req.query;
+  if (category) {
+    const filteredProducts = products.filter(p => p.category === category);
+    res.json(filteredProducts);
+  } else {
+    res.json(products);
+  }
+});
 
-// Sample in-memory products database
 let products = [
   {
     id: '1',
